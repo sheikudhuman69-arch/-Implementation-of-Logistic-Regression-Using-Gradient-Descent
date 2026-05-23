@@ -8,22 +8,77 @@ To write a program to implement the the Logistic Regression Using Gradient Desce
 2. Anaconda – Python 3.7 Installation / Jupyter notebook
 
 ## Algorithm
-1. 
-2. 
-3. 
-4. 
+1. Import the necessary python packages
+2. Read the dataset.
+3. Define X and Y array.
+4. Define a function for costFunction,cost and gradient.
+5. Define a function to plot the decision boundary and predict the Regression value
+
 
 ## Program:
 ```
 /*
 Program to implement the the Logistic Regression Using Gradient Descent.
-Developed by: 
-RegisterNumber:  
+Developed by: SHEIK UDHUMAN
+RegisterNumber:  212225040407
+import numpy as np
+import matplotlib.pyplot as plt
+from sklearn.metrics import confusion_matrix, classification_report, accuracy_score
+
+# 1. Generate dataset
+np.random.seed(0)
+X = np.random.randn(100, 2)
+y = (X[:, 0] + X[:, 1] > 0).astype(int)
+
+# 2. Sigmoid function
+def sigmoid(z):
+    return 1 / (1 + np.exp(-z))
+
+# 3. Initialize parameters
+weights = np.zeros(2)
+bias = 0
+lr = 0.1
+epochs = 1000
+
+# 4. Gradient Descent
+for _ in range(epochs):
+    linear_model = np.dot(X, weights) + bias
+    y_pred = sigmoid(linear_model)
+
+    dw = (1/len(X)) * np.dot(X.T, (y_pred - y))
+    db = (1/len(X)) * np.sum(y_pred - y)
+
+    weights -= lr * dw
+    bias -= lr * db
+
+# 5. Predictions
+probabilities = sigmoid(np.dot(X, weights) + bias)
+y_pred_final = (probabilities >= 0.5).astype(int)
+
+# 6. Classification Metrics
+print("Accuracy:", accuracy_score(y, y_pred_final))
+print("\nConfusion Matrix:\n", confusion_matrix(y, y_pred_final))
+print("\nClassification Report:\n", classification_report(y, y_pred_final))
+
+# 7. Plot graph
+plt.scatter(X[:, 0], X[:, 1], c=y, cmap='bwr')
+
+# Decision boundary
+x_vals = np.array([min(X[:, 0]), max(X[:, 0])])
+y_vals = -(weights[0]*x_vals + bias) / weights[1]
+
+plt.plot(x_vals, y_vals, color='black')
+
+plt.title("Logistic Regression (Gradient Descent)")
+plt.xlabel("Feature 1")
+plt.ylabel("Feature 2")
+plt.show()
 */
 ```
 
 ## Output:
-![logistic regression using gradient descent](sam.png)
+<img width="883" height="747" alt="image" src="https://github.com/user-attachments/assets/b9015db8-69a5-49f3-9b68-386142d8da87" />
+
 
 
 ## Result:
